@@ -1,0 +1,145 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/jetbrains-mono";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --bg: #0A0A08;
+  --surface: #141410;
+  --surface-hover: #1C1C16;
+  --border: #2A2A22;
+  --border-dim: #1E1E18;
+  --text: #C8C4B0;
+  --text-dim: #5A5A4A;
+  --text-bright: #EAE6D0;
+  --amber: #E8A000;
+  --amber-dim: rgba(232, 160, 0, 0.10);
+  --amber-border: rgba(232, 160, 0, 0.30);
+  --destructive-text: #A05040;
+
+  --background: #0A0A08;
+  --foreground: #C8C4B0;
+  --card: #141410;
+  --card-foreground: #C8C4B0;
+  --popover: #141410;
+  --popover-foreground: #C8C4B0;
+  --primary: #E8A000;
+  --primary-foreground: #0A0A08;
+  --secondary: #1C1C16;
+  --secondary-foreground: #C8C4B0;
+  --muted: #1C1C16;
+  --muted-foreground: #5A5A4A;
+  --accent: #1C1C16;
+  --accent-foreground: #C8C4B0;
+  --destructive: #A05040;
+  --input: #2A2A22;
+  --ring: #E8A000;
+  --radius: 0px;
+}
+
+.light {
+  --bg: #F5F2E8;
+  --surface: #FDFBF4;
+  --surface-hover: #F0EDD8;
+  --border: #D4CEB8;
+  --border-dim: #E4DFCC;
+  --text: #3A3828;
+  --text-dim: #8A8770;
+  --text-bright: #1A1810;
+  --amber: #B87800;
+  --amber-dim: rgba(184, 120, 0, 0.10);
+  --amber-border: rgba(184, 120, 0, 0.30);
+  --destructive-text: #C05040;
+
+  --background: #F5F2E8;
+  --foreground: #3A3828;
+  --card: #FDFBF4;
+  --card-foreground: #3A3828;
+  --popover: #FDFBF4;
+  --popover-foreground: #3A3828;
+  --primary: #B87800;
+  --primary-foreground: #F5F2E8;
+  --secondary: #F0EDD8;
+  --secondary-foreground: #3A3828;
+  --muted: #F0EDD8;
+  --muted-foreground: #8A8770;
+  --accent: #F0EDD8;
+  --accent-foreground: #3A3828;
+  --destructive: #C05040;
+  --input: #D4CEB8;
+  --ring: #B87800;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+@theme inline {
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  /* custom tokens */
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border-dim: var(--border-dim);
+  --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
+  --color-text-bright: var(--text-bright);
+  --color-amber: var(--amber);
+  --color-amber-dim: var(--amber-dim);
+  --color-amber-border: var(--amber-border);
+  --color-destructive-text: var(--destructive-text);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-mono;
+  }
+}
