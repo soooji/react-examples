@@ -1,7 +1,10 @@
+import { cn } from "@/lib/utils";
 import { mockProducts } from "./mockServer";
 import ProductItem from "./ProductItem";
+import ProductSearch from "./components/ProductSearch";
 import useCart from "./useCart";
 import useBeforeUnload from "./useBeforeUnload";
+import useProductSearch from "./useProductSearch";
 import type { CartItem } from "./types";
 
 type Props = {
@@ -12,6 +15,8 @@ function ProductList({ initialCart }: Props) {
   const { optimisticCart, isPending, error, addToCart, decrementFromCart, removeFromCart, getCountForProduct } =
     useCart(initialCart);
 
+  const { inputValue, setInputValue, results, isLoading, isTypingAhead } = useProductSearch();
+
   useBeforeUnload(isPending, "Cart is still syncing. Leave anyway?");
 
   const totalItems = optimisticCart.length;
@@ -21,7 +26,7 @@ function ProductList({ initialCart }: Props) {
   }, 0);
 
   return (
-    <div className="w-full max-w-[480px] border border-border bg-surface">
+    <div className="w-full max-w-[480px] border border-border bg-surface flex flex-col max-h-[calc(100svh-3rem)]">
       {/* Receipt header */}
       <div className="px-6 pt-6 pb-5 border-b border-dashed border-border text-center">
         <div className="text-[11px] tracking-[0.2em] text-text-dim uppercase mb-[6px]">
@@ -43,6 +48,14 @@ function ProductList({ initialCart }: Props) {
         </div>
       </div>
 
+      {/* Search */}
+      <ProductSearch
+        value={inputValue}
+        onChange={setInputValue}
+        isLoading={isLoading}
+        isTypingAhead={isTypingAhead}
+      />
+
       {/* Column labels */}
       <div
         className="grid gap-x-4 px-6 py-[10px] border-b border-border-dim text-[10px] tracking-[0.15em] uppercase text-text-dim"
@@ -53,9 +66,8 @@ function ProductList({ initialCart }: Props) {
         <span className="text-right min-w-[60px]">Price</span>
       </div>
 
-      {/* Line items */}
-      <ul className="list-none m-0">
-        {mockProducts.map((product) => (
+      <ul className={cn("list-none m-0 flex-1 overflow-y-auto overscroll-contain product-list-scroll transition-opacity duration-150", (isLoading || isTypingAhead) && "opacity-50")}>
+        {results.map((product) => (
           <ProductItem
             key={product.id}
             product={product}
@@ -65,6 +77,11 @@ function ProductList({ initialCart }: Props) {
             onRemove={removeFromCart}
           />
         ))}
+        {results.length === 0 && (
+          <li className="px-6 py-4 text-[11px] text-text-dim tracking-[0.05em]">
+            no products found
+          </li>
+        )}
       </ul>
 
       {/* Receipt footer */}

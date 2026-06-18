@@ -132,6 +132,39 @@ body {
   --color-destructive-text: var(--destructive-text);
 }
 
+@keyframes search-progress {
+  0%   { left: -60%; width: 20%; }
+  30%  { width: 50%; }
+  60%  { width: 20%; }
+  100% { left: 120%; width: 20%; }
+}
+
+@layer utilities {
+  .search-progress-bar {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: var(--amber);
+    animation: search-progress 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .product-list-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .product-list-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+  .product-list-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .product-list-scroll::-webkit-scrollbar-thumb {
+    background: var(--border);
+  }
+  .product-list-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--text-dim);
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
